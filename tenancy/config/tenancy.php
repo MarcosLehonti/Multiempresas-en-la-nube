@@ -19,7 +19,9 @@ return [
      */
     'central_domains' => [
         'tenancy.test',
-        
+        '127.0.0.1'
+
+
     ],
 
     /**
