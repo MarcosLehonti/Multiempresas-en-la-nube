@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use PhpParser\Node\Stmt\Return_;
+use Spatie\Permission\Models\Role;
 
 
 class UserController extends Controller
@@ -67,10 +68,8 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(User $user)
-    {
-        return view('users.edit', [
-            'user' => $user,
-        ]);
+    {    $roles=role::all();
+        return view('users.edit',compact('user','roles'));
     }
 
     /**
@@ -78,19 +77,21 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        //dd($request);
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed', // Asume que hay un campo de confirmación de contraseña
+            'roles' => 'required|array',
         ]);
 
-        $user->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => $request->filled('password') ? bcrypt($request->input('password')) : $user->password,
-        ]);
+        // Actualizar el nombre del usuario
+        $user->update(['name' => $request->name]);
 
-        return redirect()->route('users.index');
+        // Sincronizar los roles
+        $user->roles()->sync($request->roles);
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('users.index')->with('success', 'Roles asignados correctamente');
     }
 
     /**

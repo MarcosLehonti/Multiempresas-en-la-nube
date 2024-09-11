@@ -45,6 +45,7 @@ return array(
     'Stancl\\VirtualColumn\\' => array($vendorDir . '/stancl/virtualcolumn/src'),
     'Stancl\\Tenancy\\' => array($vendorDir . '/stancl/tenancy/src'),
     'Stancl\\JobPipeline\\' => array($vendorDir . '/stancl/jobpipeline/src'),
+    'Spatie\\Permission\\' => array($vendorDir . '/spatie/laravel-permission/src'),
     'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),
     'Ramsey\\Collection\\' => array($vendorDir . '/ramsey/collection/src'),
     'Psy\\' => array($vendorDir . '/psy/psysh/src'),

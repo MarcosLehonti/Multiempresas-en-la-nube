@@ -8,12 +8,15 @@
 
     <x-container class="py-12" >
        <div class="flex justify-end mb-6">
+        @can('inquilino.create')
         <a href="{{route('tenants.create')}}" class="btn btn-blue">
             Nuevo
         </a>
+        @endcan
+
        </div>
 
-       
+
 
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -26,9 +29,9 @@
                             Dominio
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            
+
                         </th>
-                       
+
                     </tr>
                 </thead>
                 <tbody>
@@ -62,19 +65,19 @@
                                  </a>
 
                               </div>
-                                
+
                             </td>
-                        
+
                         </tr>
                     @endforeach
-                    
-                    
+
+
                 </tbody>
             </table>
         </div>
 
 
-       
+
 
 
 
@@ -83,6 +86,6 @@
     </x-container>
 
 
-    
+
 
 </x-app-layout>

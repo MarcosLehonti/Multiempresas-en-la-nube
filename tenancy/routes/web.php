@@ -38,4 +38,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('tenants',TenantController::class)->except(['show']);
 });
 
+
 require __DIR__.'/auth.php';

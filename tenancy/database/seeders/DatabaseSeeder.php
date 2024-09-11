@@ -19,10 +19,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
+        $this->call(RolSeeder::class);
+        //crear un admin
+        $this->call(UsersSeeder::class);
        //seder para crear el usuario admin por defecto en la base de datos
         $this->call([
             AdminUserSeeder::class,
+
         ]);
     }
 }

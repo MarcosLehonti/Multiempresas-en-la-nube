@@ -6,11 +6,11 @@
     </x-slot>
 
     <x-container class="py-12">
-        <div class="flex justify-end mb-6">
+        {{-- <div class="flex justify-end mb-6">
             <a href="{{ route('users.create') }}" class="btn btn-blue">
                 Nuevo
             </a>
-        </div>
+        </div> --}}
 
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-500">
@@ -19,6 +19,7 @@
                         <th scope="col" class="px-6 py-3">ID</th>
                         <th scope="col" class="px-6 py-3">Nombre</th>
                         <th scope="col" class="px-6 py-3">Email</th>
+
                         <th scope="col" class="px-6 py-3"></th> <!-- Nueva columna para acciones -->
                     </tr>
                 </thead>
@@ -33,13 +34,19 @@
                                     <form action="{{ route('users.destroy', $user) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
+                                        @can('users.destroy')
                                         <button type="submit" class="btn btn-red">
                                             Eliminar
                                         </button>
+                                        @endcan
+
                                     </form>
+                                    @can('users.edit')
                                     <a href="{{ route('users.edit', $user) }}" class="btn btn-green">
                                         Editar
                                     </a>
+                                    @endcan
+
                                 </div>
                             </td>
                         </tr>

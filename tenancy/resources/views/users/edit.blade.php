@@ -1,39 +1,46 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Editar Usuario
-        </h2>
-    </x-slot>
+    <div class="text-xl font-semibold text-gray-800">
+        Asignar un rol
+    </div>
 
-    <x-container class="py-12">
-        <div class="card">
-            <div class="card-body">
-                <form action="{{ route('users.update', $user) }}" method="POST" style="background-color: #ffffff; padding: 20px; border-radius: 8px;">
-                    @method('PUT')    
-                    @csrf
-                    <div class="mb-4">
-                        <x-input-label for="name">
-                            Nombre
-                        </x-input-label>
-                        <x-text-input id="name" name="name" class="w-full mt-2" type="text" value="{{ old('name', $user->name) }}" placeholder="Ingrese el nombre"/>
-                        <x-input-error :messages="$errors->get('name')"/>
-                    </div>
-
-                    <div class="mb-4">
-                        <x-input-label for="email">
-                            Correo Electrónico
-                        </x-input-label>
-                        <x-text-input id="email" name="email" class="w-full mt-2" type="email" value="{{ old('email', $user->email) }}" placeholder="Ingrese el correo electrónico"/>
-                        <x-input-error :messages="$errors->get('email')"/>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button class="btn btn-blue">
-                            Actualizar
-                        </button>
-                    </div>
-                </form>
-            </div>
+    {{-- Mostrar mensaje de éxito --}}
+    @if (session('success'))
+        <div class="bg-green-500 text-white font-bold px-4 py-2 rounded mb-4">
+            {{ session('success') }}
         </div>
-    </x-container>
+    @endif
+
+    <form method="POST" action="{{ route('users.update', $user->id) }}">
+        @csrf
+        @method('PUT')
+
+        <div class="mb-4">
+            <label class="text-xl font-semibold text-gray-800" for="name">Nombre:</label>
+            <input
+                id="name"
+                name="name"
+                type="text"
+                class="w-full px-4 py-2 border rounded-lg"
+                value="{{ old('name', $user->name) }}"
+                placeholder="Ingrese el nombre"
+            />
+        </div>
+
+        <h2 class="text-xl font-semibold text-gray-800">Listado de Roles</h2>
+        @foreach ($roles as $rol)
+            <div class="mb-2">
+                <label>
+                    <input type="checkbox" name="roles[]" value="{{ $rol->id }}"
+                        @if($user->roles->contains($rol->id)) checked @endif>
+                    {{ $rol->name }}
+                </label>
+            </div>
+        @endforeach
+
+        <div class="mt-4">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Asignar rol
+            </button>
+        </div>
+    </form>
 </x-app-layout>
